@@ -10,25 +10,19 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        stage("terraform init") {
             steps {
-                git 'https://github.com/ygminds73/eks-cluster-deployment.git'
-            }
-        }
-    
-        stage ("terraform init") {
-            steps {
-                sh ("terraform init -reconfigure") 
+                sh "terraform init -reconfigure"
             }
         }
         
-        stage ("plan") {
+        stage("plan") {
             steps {
-                sh ('terraform plan') 
+                sh "terraform plan"
             }
         }
 
-        stage (" Action") {
+        stage("Action") {
             steps {
                 script {
                     switch (params.ACTION) {
